@@ -1,0 +1,22 @@
+{
+    "web01":{
+        "/data/www/web":"-p rwa",
+        "/data/www/vendor":"-p rwa"
+    },
+    "web02":{
+        "/data/www/web":"-p rwa",
+        "/data/www/vendor":"-p rwa"
+    },
+    "web03":{
+        "/data/www/web":"-p rwa",
+        "/data/www/vendor":"-p rwa"
+    },
+    "web0N":{
+        "/data/www/web":"-p rwa",
+        "/data/www/vendor":"-p rwa"
+    },
+    "system":{
+        "/etc/passwd":"-k PASSWD",
+        "/etc/my.conf":"-k PASSWD"
+    }
+}

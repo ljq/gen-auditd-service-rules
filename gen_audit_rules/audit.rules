@@ -1,0 +1,42 @@
+# This file contains the auditctl rules that are loaded
+# whenever the audit daemon is started via the initscripts.
+# The rules are simply the parameters that would be passed
+# to auditctl.
+
+# First rule - delete all
+-D
+
+# Increase the buffers to survive stress events.
+# Make this bigger for busy systems
+-b 320
+
+# Feel free to add below this line. See auditctl man page
+
+#### APP NAME Audit Rules Created By DataTime: 2019/02/05 01:05:32 ####
+
+
+#audit rule block: web0N
+
+-w /data/www/vendor -p rwa
+-w /data/www/web -p rwa
+
+#audit rule block: web03
+
+-w /data/www/vendor -p rwa
+-w /data/www/web -p rwa
+
+#audit rule block: web02
+
+-w /data/www/vendor -p rwa
+-w /data/www/web -p rwa
+
+#audit rule block: web01
+
+-w /data/www/vendor -p rwa
+-w /data/www/web -p rwa
+
+#audit rule block: system
+
+-w /etc/my.conf -k PASSWD
+-w /etc/passwd -k PASSWD
+#### END ####
