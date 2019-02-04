@@ -1,13 +1,13 @@
 # app name gen - audit - rules
 Linux generate auditd service rules tools Version 1.0
 
-# # # # # # python module
-` ` `
+###### python module
+```
 The import of OS, json, time
-` ` `
+```
 
 Important rules for the main configuration file auditd.conf
-` ` `
+```
 The maximum log file size in MB. When this capacity is reached, the actions specified by max_log_file _action are executed
 # (if the file is set too small, a large number of files will be generated. You can set the appropriate size)
 Max_log_file = 6
@@ -23,11 +23,11 @@ The name of the old file will be audit.log.n, where N is a number. The larger th
 # (this configuration does not need to be moved)
 Max_log_file_action = ROTATE
 
-` ` `
+```
 
 Configuration rules (infinite nodes)
 
-` ` `
+```
 # custom rule configuration reference instance (conf/audit_rules_conf.json) :
 
 {
@@ -53,7 +53,7 @@ Configuration rules (infinite nodes)
 },
 ...
 }
-` ` `
+```
 
 Composition of audit rules (consolidation)
 
@@ -63,7 +63,7 @@ The conf/audit. Rules. Default
 [custom rules, infinite nodes]
 The conf/audit_rules_conf. Json
 
-` ` `
+```
 Create rule instances (rules default -w)
 
 APP NAME Audit Rules Created By DataTime: 2019/01/01 00:00:00
@@ -76,7 +76,7 @@ Rule block: # audit system
 - w/etc/my. Conf -k PASSWD
 - w/etc/passwd - k passwd
 
-` ` `
+```
 
 Built rules file path
 Gen_audit_rules/audit rules
@@ -89,7 +89,7 @@ The/etc/audit/audit rules
 
 Common command tools
 
-` ` `
+```
 
 Auditctl: a tool for controlling the behavior of the audit daemon in real time, such as adding rules.
 Aureport: a tool for viewing and generating audit reports.
@@ -101,7 +101,7 @@ Autrace: a command used to trace a process.
 /etc/auditd.conf: the configuration file for the auditd tool.
 /etc/audit/audit.rules: files that record audit rules.
 
-` ` `
+```
 
 The audit log format
 
