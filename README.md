@@ -5,7 +5,7 @@ Linux generate auditd service rules tools Version 1.0
 
 ###### python module
 ```
-The import of OS, json, time
+The import of os, json, time
 ```
 
 Important rules for the main configuration file auditd.conf
