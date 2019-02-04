@@ -31,28 +31,29 @@ Configuration rules (infinite nodes)
 # custom rule configuration reference instance (conf/audit_rules_conf.json) :
 
 {
-"Web01" : {
-"/ data/WWW/web" : "-p rwa",
-"/ data/WWW/vendor" : "-p rwa." "
-},
-"Web02" : {
-"/ data/WWW/web" : "-p rwa",
-"/ data/WWW/vendor" : "-p rwa." "
-},
-"Web03" : {
-"/ data/WWW/web" : "-p rwa",
-"/ data/WWW/vendor" : "-p rwa." "
-},
-"Web0N" : {
-"/ data/WWW/web" : "-p rwa",
-"/ data/WWW/vendor" : "-p rwa." "
-},
-"The system" : {
-"/ etc/passwd" : "passwd" - k,
-"/ etc/my. Conf" : "- k PASSWD"
-},
-...
+    "web01":{
+        "/data/www/web":"-p rwa",
+        "/data/www/vendor":"-p rwa"
+    },
+    "web02":{
+        "/data/www/web":"-p rwa",
+        "/data/www/vendor":"-p rwa"
+    },
+    "web03":{
+        "/data/www/web":"-p rwa",
+        "/data/www/vendor":"-p rwa"
+    },
+    "web0N":{
+        "/data/www/web":"-p rwa",
+        "/data/www/vendor":"-p rwa"
+    },
+    "system":{
+        "/etc/passwd":"-k PASSWD",
+        "/etc/my.conf":"-k PASSWD"
+    }
+    ...
 }
+
 ```
 
 Composition of audit rules (consolidation)
