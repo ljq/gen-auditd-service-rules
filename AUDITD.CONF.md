@@ -1,122 +1,122 @@
-``` 
-# 审计日志文件的完整路径。如果您配置守护进程向除默认/var/log/audit/外的目录中写日志文件时，
-# 一定要修改它上面的文件权限，使得只有根用户有读、写和执行权限。所有其他用户都不能访问这个
-# 目录或这个目录中的日志文件。
-log_file =/var/log/audit/audit.log
+` ` `
+The full path to the audit log file. If you configure the daemon to write log files to directories other than the default /var/log/audit/,
+Be sure to modify the file permissions on it so that only root has read, write, and execute permissions. This is inaccessible to all other users
+The # directory or log files in this directory.
+Log_file = / var/log/audit/audit log
 
-# 写日志时要使用的格式。当设置为RAW时，数据会以从内核中检索到的格式写到日志文件中。当设置
-# 为NOLOG时，数据不会写到日志文件中，但是如果用dispatcher选项指定了一个，则数据仍然会发送
-# 到审计事件调度程序中
-log_format = RAW
+The format to use when writing logs. When set to RAW, the data is written to the log file in the format retrieved from the kernel. When setting
+When # is NOLOG, the data is not written to the log file, but it is still sent if one is specified with the dispatcher option
+Into the audit event scheduler
+Log_format = RAW
 
-# 日志所属组
-log_group = root
+# logs belong to a group
+Log_group = root
 
-# 审计应采用多少优先级推进守护进程。必须是非负数。0表示没有变化。
-priority_boost = 4
+How much priority should audit take to advance daemons. It has to be non-negative. Zero means no change.
+Priority_boost = 4
 
-# 多长时间向日志文件中写一次数据。值可以是NONE、INCREMENTAL、DATA和SYNC之一。如果设置为
-# NONE：        则不需要做特殊努力来将数据 刷新到日志文件中。
-# INCREMENTAL:  则用freq选项的值确定多长时间发生一次向磁盘的刷新。
-# DATA：        则审计数据和日志文件一直是同步的。
-# SYNC：        则每次写到日志文件时，数据和元数据是同步的。
-flush = INCREMENTAL
+How often data is written to the log file. The values can be one of NONE, INCREMENTAL, DATA, and SYNC. If set to
+# NONE: no special effort is required to flush the data to the log file.
+# INCREMENTAL: determines how often a refresh to disk occurs with the value of the freq option.
+# DATA: the audit DATA and log files are always synchronized.
+# SYNC: the data and metadata are synchronized each time a log file is written.
+Flush = INCREMENTAL
 
-# 如果flush设置为INCREMETNAL，审计守护进程在写到日志文件中前从内核中接收的记录数
-freq = 20
+If flush is set to INCREMETNAL, the audit daemon receives the number of records from the kernel before writing to the log file
+Freq = 20
 
-#max_log_file_action设置为ROTATE时要保存的日志文件数目。必须是0~99之间的数。如果设置为小于2，
-# 则不会循环日志。如果递 增了日志文件的数目，就可能有必要递增/etc/audit/audit.rules中的内核
-# backlog设置值，以便留出日志循环的时间。如果没有设 置num_logs值，它就默认为0，意味着从来不循环日志文件。
-num_logs = 5
+#max_log_file_action set to ROTATE the number of log files to save. It has to be something between 0 and 99. If it's less than 2,
+# does not loop through the logs. If the number of log files is increased, it might be necessary to increment the kernel in /etc/audit/audit.rules
+Set the value for the # backlog to allow time for the log cycle. If the num_logs value is not set, it defaults to 0, which means that the log files are never looped.
+Num_logs = 5
 
-# 控制调度程序与审计守护进程之间的通信类型。有效值为lossy和lossless。如果设置为lossy，
-# 若审计守护进程与调度程序之间的缓冲区已满 (缓冲区为128千字节)，则发送给调度程序的引入
-# 事件会被丢弃。然而，只要log_format没有设置为nolog，事件就仍然会写到磁盘中。如果设 置为lossless，
-# 则在向调度程序发送事件之前和将日志写到磁盘之前，调度程序会等待缓冲区有足够的空间。
-disp_qos = lossy
+Controls the type of communication between the scheduler and the audit daemon. Valid values are lossy and lossless. If you set it to lossy,
+If the buffer between the audit daemon and the scheduler is full (128 kilobytes), it is sent to the scheduler's import
+The # event is discarded. However, as long as log_format is not set to nolog, events will still be written to disk. If I set this to lossless,
+# then the scheduler waits for sufficient buffer space before sending events to the scheduler and before writing the logs to disk.
+Disp_qos = lossy
 
-# 当启动这个守护进程时，由审计守护进程自动启动程序。所有守护进程都传递给这个程序。可以用
-# 它来进一步定制报表或者以与您的自定义分析程序兼容的不同格式 产生它们。自定义程序的示例
-# 代码可以在/usr/share/doc/audit- /skeleton.c中找到。由于调度程序用根用户特权运行，因此使用
-# 这个选项时要极其小心。这个选项不是必需的。
-dispatcher = /sbin/audispd
+The audit daemon starts the program automatically when the daemon is started. All daemons are passed to this program. You can use
+It can be used to further customize reports or to generate them in a different format that is compatible with your custom analyzer. Example of a custom program
+The # code can be found in /usr/share/doc/audit- /skeleton. C. Because the scheduler runs with root privileges, it is used
+Be extremely careful with the # option. This option is not required.
+The dispatcher = / sbin/audispd
 
-# 此选项控制计算机节点名如何插入到审计事件流中。它有如下的选择：none,  hostname, fqd, numeric, and user
-# None意味着没有计算机名被插入到审计事件中。hostname通过gethostname系统调用返回的名称。fqd意味着它=以主机名
-# 和解决它与DNS的完全合格的域名，numeric类似于fqd除解决本机的IP地址，为了使用这个选项，你可能想要测试’hostname -i’
-# 或 ’domainname-i’返回一个数字地址,另外，此选项不如果DHCP的使用是因为你可以有不同的地址，在同一台机器上的时间推荐。
-# 用户是从名称选项中定义的字符串。默认值是没有
-name_format = NONE
+This option controls how the computer node name is inserted into the audit event stream. It has the following options: none, hostname, FQD, numeric, and user
+# None means that no computer name was inserted into the audit event. Hostname is the name returned through the gethostname system call. FQD means it = with host name
+# and to resolve its fully qualified domain name with DNS, numeric is similar to FQD except to resolve the native IP address. To use this option, you may want to test 'hostname-i'
+# or 'domainname-i' returns a numeric address, in addition, this option is not recommended if DHCP is used because you can have different addresses on the same machine at the same time.
+The # user is a string defined from the name option. The default is none
+Name_format = NONE
 
-##name = mydomain
+# # name = mydomain
 
-# 以兆字节表示的最大日志文件容量。当达到这个容量时，会执行max_log_file _action指定的动作
-max_log_file = 6 
+The maximum log file size in megabytes. When this capacity is reached, the actions specified by max_log_file _action are executed
+Max_log_file = 6
 
-# 当达到max_log_file的日志文件大小时采取的动作。值必须是IGNORE、SYSLOG、SUSPEND、ROTATE和KEEP_LOGS之 一。
-# IGNORE: 则在日志文件达到max_log_file后不采取动作。
-# SYSLOG：则当达到文件容量时会向系统日志/var /log/messages中写入一条警告。
-# SUSPEND: 则当达到文件容量后不会向日志文件写入审计消息。
-# ROTATE: 则当达 到指定文件容量后会循环日志文件，但是只会保存一定数目的老文件，这个数目由num_logs参数指定。
-#         老文件的文件名将为audit.log.N，其中 N是一个数字。这个数字越大，则文件越老。
-# KEEP_LOGS: 则会循环日志文件，但是会忽略num_logs参数，因此不会删除日志文件。
-max_log_file_action = ROTATE
+Action taken when max_log_file's log file size is reached. The values must be one of IGNORE, SYSLOG, SUSPEND, ROTATE, and KEEP_LOGS.
+# IGNORE: no action will be taken if the log file reaches max_log_file.
+# SYSLOG: a warning is written to system log /var/log/messages when the file size is reached.
+SUSPEND: does not write an audit message to the log file after its file capacity has been reached.
+# ROTATE: loops around log files as the specified file size is reached, but only a certain number of old files are saved, specified by the num_logs parameter.
+The file name for the old # file will be audit.log.n, where N is a number. The larger the number, the older the file.
+# KEEP_LOGS: the log file is looped, but the num_logs parameter is ignored, so no log files are deleted.
+Max_log_file_action = ROTATE
 
-# 以兆字节表示的磁盘空间数量。当达到这个水平时，会采取space_left_action参数中的动作
-space_left = 75
+The amount of disk space in megabytes. When this level is reached, the action in the space_left_action parameter is taken
+Space_left = 75
 
-# 当磁盘空间量达到space_left中的值时，采取这个动作。有效值为IGNORE、SYSLOG、EMAIL、SUSPEND、SINGLE和 HALT。
-# IGNORE:   则不采取动作。
-# SYSLOG:   则向系统日志/var/log/messages写一条警告消息。
-# EMAIL:    则从action_mail_acct向这个地址发送一封电子邮件，并向/var/log/messages中写一条警告消息。如果设置为 
-# SUSPEND:  则不再向审计日志文件中写警告消息。如果设置为SINGLE，则系统将在单用户模式下。如果设置为SALT，则系统会关闭。
+This action is taken when the amount of disk space reaches the value in space_left. Valid values are IGNORE, SYSLOG, EMAIL, SUSPEND, SINGLE, and HALT.
+IGNORE: no action will be taken.
+# SYSLOG: writes a warning message to system log /var/log/messages.
+EMAIL: sends an EMAIL from action_mail_acct to this address and a warning message to /var/log/messages. If set to
+SUSPEND: no longer writes warning messages to the audit log file. If set to SINGLE, the system is in single-user mode. If set to SALT, the system shuts down.
 #
-space_left_action = SYSLOG
+Space_left_action = SYSLOG
 
-# 负责维护审计守护进程和日志的管理员的电子邮件地址。如果地址没有主机名，则假定主机名为本地地址，比如root。
-# 必须安装sendmail并配置为向指定电子邮件地址发送电子邮件。
-action_mail_acct = root
+The email address of the administrator responsible for maintaining the audit daemons and logs. If the address does not have a host name, the host name is assumed to be a local address, such as root.
+Sendmail must be installed and configured to send E-mail to a specified E-mail address.
+Action_mail_acct = root
 
-# 以兆字节表示的磁盘空间数量。用这个选项设置比space_left_action更多的主动性动作，以防万一space_left_action没有让
-# 管理员释放任何磁盘空间。这个值应小于space_left_action。如果达到这个水平，则会采取admin_space_left_ action所指定的动作。
-admin_space_left = 50
+The amount of disk space in megabytes. Use this option to set more proactive actions than space_left_action, just in case space_left_action doesn't let you
+The administrator frees up any disk space. This value should be less than space_left_action. If this level is reached, the action specified in admin_space_left_ action is taken.
+Admin_space_left = 50
 
-# 当自由磁盘空间量达到admin_space_left指定的值时，则采取动作。有效值为IGNORE、SYSLOG、EMAIL、SUSPEND、SINGLE和HALT。
-# 与这些值关联的动作与space_left_action中的相同。
-admin_space_left_action = SUSPEND
+Action is taken when the amount of free disk space reaches the value specified in admin_space_left. Valid values are IGNORE, SYSLOG, EMAIL, SUSPEND, SINGLE, and HALT.
+The action # is associated with these values is the same as in space_left_action.
+Admin_space_left_action = SUSPEND
 
-# 如果含有这个审计文件的分区已满，则采取这个动作。可能值为IGNORE、SYSLOG、SUSPEND、SINGLE和HALT。与这些值关联的动作
-# 与space_left_action中的相同。
-disk_full_action = SUSPEND
+Take this action if the partition containing the audit file is full. Possible values are IGNORE, SYSLOG, SUSPEND, SINGLE, and HALT. Actions associated with these values
+Same as in space_left_action.
+Disk_full_action = SUSPEND
 
-# 如果在写审计日志或循环日志文件时检测到错误时采取的动作。值必须是IGNORE、SYSLOG、SUSPEND、SINGLE和HALT之一。
-# 与这些值关的动作与space_left_action中的相同
-disk_error_action = SUSPEND
+Action if an error is detected while writing an audit log or looping log file. The values must be one of IGNORE, SYSLOG, SUSPEND, SINGLE, and HALT.
+The actions for # and these values are the same as those in space_left_action
+Disk_error_action = SUSPEND
 
-# 这是在范围1、65535，一个数字值，如果指定，原因auditd听在从远程系统审计记录相应的TCP端口。审计程序可能与tcp_wrappers。
-# 你可能想控制在hosts.allow入口访问和否认文件。
-## tcp_listen_port = 
-# 这是一个数字值，这表明有多少等待（要求但UNAC接受）的连接是允许的。默认值是5。设置过小的可能导致连接被拒绝，
-# 如果太多主机开始在完全相同的时间，如电源故障后。
-tcp_listen_queue = 5
+# this is in the range 1, 65535, a numeric value, if specified, reason auditd listens to the corresponding TCP port in the audit record from the remote system. Auditing programs may be associated with tcp_wrappers.
+You may want to control access to and deny files in the hosts.allow entry.
+# # tcp_listen_port =
+This is a numeric value that indicates how much waiting (required but accepted by UNAC) connections are allowed. The default value is 5. Setting too small may cause the connection to be rejected,
+If too many hosts start at exactly the same time, such as after a power failure.
+Tcp_listen_queue = 5
 
-# 这是一个数字值，该值表示一个地址允许有多少个并发连接。默认为1，最大为1024。设置过大可能会允许拒绝服务攻击的日志服务器。
-# 还要注意的是，内核内部有一个最大的，最终将防止这种即使auditd允许它通过配置。在大多数情况下，默认应该是足够除非写一个
-# 自定义的恢复脚本运行提出未发送事件。在这种情况下，您将增加的数量只有足够大，让它在过。
-tcp_max_per_addr = 1
+This is a numeric value that indicates how many concurrent connections are allowed at an address. The default is 1, with a maximum of 1024. Setting the log server too large may allow denial of service attacks.
+Also note that there is a large internal kernel that will eventually prevent this even if auditd allows it to be configured. In most cases, the default should be sufficient unless one is written
+The custom recovery script runs with unsent events. In this case, you will increase the amount just enough to let it pass.
+Tcp_max_per_addr = 1
 
-##tcp_client_ports = 1024-65535
-tcp_client_max_idle = 0
+# # tcp_client_ports = 1024-65535
+Tcp_client_max_idle = 0
 
-# 如果设置为“yes”，Kerberos 5将用于认证和加密。默认是“no”。
-enable_krb5 = no
+If set to "yes", Kerberos 5 will be used for authentication and encryption. The default is "no".
+Enable_krb5 = no
 
-# 这是这个服务器的主要。默认是“auditd”。鉴于这种默认情况下，服务器会寻找一个名为auditd/hostname@EXAMPLE.COM存储在/etc/audit/audit.key
-# 认证本身其中主机是服务器的主机名称，如DNS查找其IP地址返回。
-krb5_principal = auditd
+This is the main server. The default is "auditd." Given this default, the server looks for a file named auditd/hostname@EXAMPLE.COM stored in /etc/audit/audit.key
+# authentication itself where the host is the server's host name, such as DNS lookup its IP address is returned.
+Krb5_principal = auditd
 
-# 这个客户的主要负责人的位置。请注意，密钥文件必须由根和模式0400所拥有。默认的是/etc/audit/audit.key
-# krb5_key_file = /etc/audit/audit.key
+The position of the key person in charge of this client. Note that the key file must be owned by the root and schema 0400. The default is /etc/audit/audit.key
+# krb5_key_file = / etc/audit/audit. The key
 
-```
+` ` `

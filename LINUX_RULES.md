@@ -1,4 +1,4 @@
-## Linux、Unix System audit priority location 系统通用规则收集整理
+## Linux、Unix System audit priority location collection
 
 ### (General rules, for reference only) 
 

@@ -1,116 +1,115 @@
-# app name gen-audit-rules
-### linux generate auditd service rules tools Version 1.0  
+# app name gen - audit - rules
+Linux generate auditd service rules tools Version 1.0
 
-###### python module
-```
-import os, json, time
-```
+# # # # # # python module
+` ` `
+The import of OS, json, time
+` ` `
 
-### auditd.conf主配置文件重要规则
-```
-# 以MB表示的最大日志文件容量。当达到这个容量时，会执行max_log_file _action指定的动作
-# (文件设置过小，会导致生成大量文件，可以设置适当大小)
-max_log_file = 6 
+Important rules for the main configuration file auditd.conf
+` ` `
+The maximum log file size in MB. When this capacity is reached, the actions specified by max_log_file _action are executed
+# (if the file is set too small, a large number of files will be generated. You can set the appropriate size)
+Max_log_file = 6
 
-# 当达到max_log_file的日志文件大小时采取的动作。值必须是IGNORE、SYSLOG、SUSPEND、ROTATE和KEEP_LOGS之 一。
-# IGNORE: 则在日志文件达到max_log_file后不采取动作。
-# SYSLOG：则当达到文件容量时会向系统日志/var /log/messages中写入一条警告。
-# SUSPEND: 则当达到文件容量后不会向日志文件写入审计消息。
-# ROTATE: 则当达 到指定文件容量后会循环日志文件，但是只会保存一定数目的老文件，这个数目由num_logs参数指定。
-#         旧文件的文件名将为audit.log.N，其中 N是一个数字。这个数字越大，则文件越老。
-# KEEP_LOGS: 则会循环日志文件，但是会忽略num_logs参数，因此不会删除日志文件。
+Action taken when max_log_file's log file size is reached. The values must be one of IGNORE, SYSLOG, SUSPEND, ROTATE, and KEEP_LOGS.
+# IGNORE: no action will be taken if the log file reaches max_log_file.
+# SYSLOG: a warning is written to system log /var/log/messages when the file size is reached.
+SUSPEND: does not write an audit message to the log file after its file capacity has been reached.
+# ROTATE: loops around log files as the specified file size is reached, but only a certain number of old files are saved, specified by the num_logs parameter.
+The name of the old file will be audit.log.n, where N is a number. The larger the number, the older the file.
+# KEEP_LOGS: the log file is looped, but the num_logs parameter is ignored, so no log files are deleted.
 #
-# (此配置无需勿动)
-max_log_file_action = ROTATE
+# (this configuration does not need to be moved)
+Max_log_file_action = ROTATE
 
-```
+` ` `
 
-### 配置规则(无限节点)
+Configuration rules (infinite nodes)
 
-```
-# 自定义规则配置参考实例(conf/audit_rules_conf.json)：
+` ` `
+# custom rule configuration reference instance (conf/audit_rules_conf.json) :
 
 {
-    "web01":{
-        "/data/www/web":"-p rwa",
-        "/data/www/vendor":"-p rwa"
-    },
-    "web02":{
-        "/data/www/web":"-p rwa",
-        "/data/www/vendor":"-p rwa"
-    },
-    "web03":{
-        "/data/www/web":"-p rwa",
-        "/data/www/vendor":"-p rwa"
-    },
-    "web0N":{
-        "/data/www/web":"-p rwa",
-        "/data/www/vendor":"-p rwa"
-    },
-    "system":{
-        "/etc/passwd":"-k PASSWD",
-        "/etc/my.conf":"-k PASSWD"
-    },
-    ...
+"Web01" : {
+"/ data/WWW/web" : "-p rwa",
+"/ data/WWW/vendor" : "-p rwa." "
+},
+"Web02" : {
+"/ data/WWW/web" : "-p rwa",
+"/ data/WWW/vendor" : "-p rwa." "
+},
+"Web03" : {
+"/ data/WWW/web" : "-p rwa",
+"/ data/WWW/vendor" : "-p rwa." "
+},
+"Web0N" : {
+"/ data/WWW/web" : "-p rwa",
+"/ data/WWW/vendor" : "-p rwa." "
+},
+"The system" : {
+"/ etc/passwd" : "passwd" - k,
+"/ etc/my. Conf" : "- k PASSWD"
+},
+...
 }
-```
+` ` `
 
-### 审计规则构成(合并)
+Composition of audit rules (consolidation)
 
-#### 1.[系统默认规则]
-conf/audit.rules.default
+[system default rules]
+The conf/audit. Rules. Default
 
-#### 2.[自定义规则,无限节点]
-conf/audit_rules_conf.json
+[custom rules, infinite nodes]
+The conf/audit_rules_conf. Json
 
-```
-# 生成规则实例(rules默认-w)
+` ` `
+Create rule instances (rules default -w)
 
-#### APP NAME Audit Rules Created By DataTime: 2019/01/01 00:00:00 ####
+APP NAME Audit Rules Created By DataTime: 2019/01/01 00:00:00
 
-#audit rule block: web
--w /data/www/web -p rwa
--w /data/www/vendor -p rwa
+# audit rule block: web
+- w/data/WWW/web - p rwa
+- w/data/WWW/vendor - p rwa
 
-#audit rule block: system
--w /etc/my.conf -k PASSWD
--w /etc/passwd -k PASSWD
+Rule block: # audit system
+- w/etc/my. Conf -k PASSWD
+- w/etc/passwd - k passwd
 
-```
+` ` `
 
-### Built rules file path
-gen_audit_rules/audit.rules
+Built rules file path
+Gen_audit_rules/audit rules
 
-###### centos 6.x path:
-/etc/audit/audit.rules
+# # # # # # centos 6. X path:
+The/etc/audit/audit rules
 
-###### centos 7.x path:
-/etc/audit/rules.d/audit.rules
+# # # # # # centos 7 x path:
+/ etc/audit/rules. D/audit rules
 
-### 常用命令工具
+Common command tools
 
-```
+` ` `
 
-auditctl : 即时控制审计守护进程的行为的工具，比如如添加规则等等。    
-aureport : 查看和生成审计报告的工具。  
-ausearch : 查找审计事件的工具。  
-auditspd : 转发事件通知给其他应用程序，而不是写入到审计日志文件中。  
-autrace : 一个用于跟踪进程的命令。  
+Auditctl: a tool for controlling the behavior of the audit daemon in real time, such as adding rules.
+Aureport: a tool for viewing and generating audit reports.
+Ausearch: a tool for finding audit events.
+Auditspd: forwards event notifications to other applications instead of writing them to the audit log file.
+Autrace: a command used to trace a process.
 
-#conf file:
-/etc/audit/auditd.conf : auditd工具的配置文件。  
-/etc/audit/audit.rules : 记录审计规则的文件。
+# the conf file:
+/etc/auditd.conf: the configuration file for the auditd tool.
+/etc/audit/audit.rules: files that record audit rules.
 
-```
+` ` `
 
-### 审计日志格式
+The audit log format
 
-time : 审计时间。  
-name : 审计对象  
-cwd : 当前路径。  
-syscall : 相关的系统调用。  
-auid : 审计用户ID。  
-uid 和 gid : 访问文件的用户ID和用户组ID。  
-comm : 用户访问文件的命令。  
-exe : 上面命令的可执行文件路径。  
-
+Time: audit time.
+Name: audit object
+CWD: current path.
+Syscall: the associated system call.
+Auid: audit user ID.
+Uid and gid: the user ID and user group ID that access the file.
+Comm: the user's command to access the file.
+Exe: the executable file path for the above command.
