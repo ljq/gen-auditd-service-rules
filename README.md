@@ -81,10 +81,10 @@ Rule block: # audit system
 Built rules file path
 Gen_audit_rules/audit rules
 
-# # # # # # centos 6. X path:
+###### centos 6. X path:
 The/etc/audit/audit rules
 
-# # # # # # centos 7 x path:
+###### centos 7 x path:
 / etc/audit/rules. D/audit rules
 
 Common command tools
