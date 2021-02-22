@@ -20,7 +20,7 @@ max_log_file = 6 
 #         旧文件的文件名将为audit.log.N，其中 N是一个数字。这个数字越大，则文件越老。
 # KEEP_LOGS: 则会循环日志文件，但是会忽略num_logs参数，因此不会删除日志文件。
 #
-# (此配置无需勿动)
+# (此配置无特别需要，请勿修改)
 max_log_file_action = ROTATE
 
 ```
