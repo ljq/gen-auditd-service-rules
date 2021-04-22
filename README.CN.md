@@ -73,7 +73,7 @@ conf/audit_rules_conf.json
 -w /data/www/vendor -p rwa
 
 #audit rule block: system
--w /etc/my.conf -k PASSWD
+-w /etc/my.cnf -k PASSWD
 -w /etc/passwd -k PASSWD
 
 ```
