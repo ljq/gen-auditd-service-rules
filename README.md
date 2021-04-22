@@ -72,12 +72,12 @@ Create rule instances (rules default -w)
 APP NAME Audit Rules Created By DataTime: 2019/01/01 00:00:00
 
 # audit rule block: web
-- w/data/WWW/web - p rwa
-- w/data/WWW/vendor - p rwa
+-w /data/WWW/web -p rwa
+-w /data/WWW/vendor -p rwa
 
 Rule block: # audit system
-- w/etc/my. Conf -k PASSWD
-- w/etc/passwd - k passwd
+-w /etc/my.cnf -k PASSWD
+-w /etc/passwd -k passwd
 
 ```
 
