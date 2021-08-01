@@ -1,7 +1,7 @@
 ## app name gen-audit-rules
 Linux generate auditd service rules tools Version 1.0
 
-[CN 中文文档说明](https://github.com/ljq/gen-auditd-service-rules/blob/master/README.CN.md)  
+[CN 中文文档说明](https://github.com/ljq/gen-auditd-service-rules/blob/master/README.zh-CN.md)  
 
 ###### python module
 ```
