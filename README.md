@@ -61,10 +61,10 @@ Configuration rules (infinite nodes)
 Composition of audit rules (consolidation)
 
 [system default rules]
-The conf/audit. Rules. Default
+The conf/audit.Rules. Default
 
 [custom rules, infinite nodes]
-The conf/audit_rules_conf. Json
+The conf/audit_rules_conf.Json
 
 ```
 Create rule instances (rules default -w)
@@ -72,23 +72,23 @@ Create rule instances (rules default -w)
 APP NAME Audit Rules Created By DataTime: 2019/01/01 00:00:00
 
 # audit rule block: web
-- w/data/WWW/web - p rwa
-- w/data/WWW/vendor - p rwa
+-w /data/WWW/web -p rwa
+-w /data/WWW/vendor -p rwa
 
 Rule block: # audit system
-- w/etc/my. Conf -k PASSWD
-- w/etc/passwd - k passwd
+-w /etc/my.cnf -k PASSWD
+-w /etc/passwd -k passwd
 
 ```
 
-Built rules file path
-Gen_audit_rules/audit rules
+Built rules file path:
+gen_audit_rules/audit.rules
 
-###### centos 6. X path:
-The/etc/audit/audit rules
+centos 6.x path:
+/etc/audit/audit.rules
 
-###### centos 7 x path:
-/ etc/audit/rules. D/audit rules
+centos 7.x path:
+/etc/audit/rules.d/audit.rules
 
 Common command tools
 
